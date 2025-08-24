@@ -1,13 +1,16 @@
 import type { NextConfig } from "next";
 
 const nextConfig: NextConfig = {
-  // ⚙️ Reglas para webpack (si las necesitas)
+  // ⚙️ Fix para dependencias de Node que no existen en el cliente
   webpack: (config) => {
-    config.externals.push("pino-pretty", "lokijs", "encoding");
+    if (!config.externals) config.externals = [];
+    if (Array.isArray(config.externals)) {
+      config.externals.push("pino-pretty", "lokijs", "encoding");
+    }
     return config;
   },
 
-  // 🚫 Ignorar ESLint en build (para Vercel)
+  // 🚫 Ignorar ESLint en build (necesario para Vercel)
   eslint: {
     ignoreDuringBuilds: true,
   },
