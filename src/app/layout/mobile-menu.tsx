@@ -1,59 +1,64 @@
 'use client'
 
-import { useState } from 'react'
+import Image from 'next/image'
 import Link from 'next/link'
-import {
-  SheetTrigger,
-  SheetContent,
-  Sheet,
-  SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
-import { MenuIcon } from 'lucide-react'
-import { type MenuItemType } from './navbar'
-import AuthButton from '../buttons/auth-button-dummy'
-import { cn } from '@/lib/utils'
+import { usePathname } from 'next/navigation'
 
-type MobileMenuProps = {
-  menuItems?: MenuItemType[]
-  pathname: string
+export type MenuItemType = {
+  displayText: string
+  href: string
+  isMobileOnly: boolean
+  isExternal?: boolean
 }
 
-export default function MobileMenu({ menuItems, pathname }: MobileMenuProps) {
-  const [isMenuOpen, setIsMenuOpen] = useState(false)
+const MENU_ITEMS: MenuItemType[] = [
+  { displayText: 'Inversionista', href: '/dashboards/user',    isMobileOnly: false },
+  { displayText: 'Asesor',        href: '/dashboards/advisor', isMobileOnly: false },
+]
+
+export default function Navbar() {
+  const pathname = usePathname()
 
   return (
-    <Sheet open={isMenuOpen} onOpenChange={setIsMenuOpen}>
-      <SheetTrigger asChild>
-        <button className="bg-transparent p-1.5 text-white lg:hidden">
-          <MenuIcon className="h-10 w-10 text-primary" />
-          <span className="sr-only">Toggle navigation menu</span>
-        </button>
-      </SheetTrigger>
-      <SheetContent side="right" className="bg-background">
-        <SheetTitle className="sr-only">Menu</SheetTitle>
-        <SheetDescription className="sr-only">
-          Navigation items
-        </SheetDescription>
-        <div className="grid gap-2 py-6">
-          {menuItems?.map((menuItem, index) => (
-            <Link
-              key={`${menuItem.displayText}-menuItem-${index}`}
-              className={cn(
-                'inline-flex items-center justify-center px-4 py-2 text-lg font-medium text-secondary-foreground transition-colors hover:text-primary focus:text-primary focus:outline-none',
-                pathname === menuItem.href &&
-                'pointer-events-none underline decoration-primary decoration-[1.5px] underline-offset-[6px] hover:!text-secondary-foreground'
-              )}
-              href={menuItem.href}
-            >
-              {menuItem.displayText}
-            </Link>
-          ))}
-          <div className="flex justify-center py-2">
-            <AuthButton setIsMenuOpen={setIsMenuOpen} />
-          </div>
+    <header className="top-0 h-20 w-full bg-background">
+      <div className="mx-auto flex h-full w-full max-w-3xl items-center justify-between p-4 sm:px-6 lg:grid lg:max-w-7xl lg:grid-cols-5 lg:px-8">
+        <Link className="flex w-24 items-center" href="/">
+          <Image
+            src="/images/logos/kukulcan-logo-color.png"
+            alt="Kukulcan logo"
+            width={128}
+            height={128}
+            className="w-12 transition duration-500 ease-in-out hover:rotate-[-25deg]"
+          />
+          <span className="sr-only">Frutero Club</span>
+        </Link>
+
+        <div className="z-10 col-span-3 flex items-center justify-center">
+          <nav className="hidden gap-6 lg:flex">
+            {MENU_ITEMS.filter((item) => !item.isMobileOnly).map((menuItem, index) => {
+              const isActive = pathname === menuItem.href
+              const base =
+                'font-funnel inline-flex items-center justify-center px-4 py-2 text-lg font-medium text-foreground transition-colors hover:text-primary focus:text-primary focus:outline-none'
+              const active =
+                'pointer-events-none underline decoration-primary decoration-[1.5px] underline-offset-[6px] hover:!text-foreground'
+
+              return (
+                <Link
+                  key={`${menuItem.displayText}-menuItem-${index}`}
+                  className={`${base} ${isActive ? active : ''}`}
+                  href={menuItem.href}
+                  target={menuItem.isExternal ? '_blank' : undefined}
+                  rel={menuItem.isExternal ? 'noreferrer noopener' : undefined}
+                >
+                  {menuItem.displayText}
+                </Link>
+              )
+            })}
+          </nav>
         </div>
-      </SheetContent>
-    </Sheet>
+
+        <div className="hidden lg:flex lg:justify-end" />
+      </div>
+    </header>
   )
 }

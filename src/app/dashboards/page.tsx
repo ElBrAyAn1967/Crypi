@@ -11,7 +11,7 @@ import { Progress } from '@/components/ui/progress'
 import { Badge } from '@/components/ui/badge'
 import { Separator } from '@/components/ui/separator'
 import { BellIcon, TrophyIcon, MedalIcon, FlagIcon, FlameIcon, CheckIcon } from 'lucide-react'
-import PageWrapper from '@/components/layout/page-wrapper'
+import PageWrapper from '@/app/layout/page-wrapper'
 
 type Lesson = {
   id: string

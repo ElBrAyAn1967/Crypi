@@ -2,7 +2,7 @@
 
 import Link from 'next/link'
 import { useRef } from 'react'
-import PageWrapper from '@/components/layout/page-wrapper'
+import PageWrapper from '@/app/layout/page-wrapper'
 import { Button } from '@/components/ui/button'
 import { ConnectButton } from '@/components/ConnectButton'
 import { Gamepad2, Coins, ShieldCheck } from 'lucide-react'
