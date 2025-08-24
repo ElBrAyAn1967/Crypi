@@ -7,7 +7,7 @@ export default function OnboardingHome() {
   const router = useRouter()
 
   useEffect(() => {
-    router.replace('/onboarding/risk-profile')
+    router.replace('/onboarding/intro')
   }, [router])
 
   return null

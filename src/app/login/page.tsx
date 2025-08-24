@@ -17,7 +17,7 @@ export default function LoginPage() {
   // Si la wallet se conecta, redirige al dashboard
   useEffect(() => {
     if (status === 'connected') {
-      router.push('/dashboard')
+      router.push('/dashboards')
     }
   }, [status, router])
 
@@ -26,7 +26,7 @@ export default function LoginPage() {
     if (!mail) return
     // opcional: guarda sesión local
     try { login?.(mail) } catch {}
-    router.push('/dashboard')
+    router.push('/dashboards')
   }
 
   const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
