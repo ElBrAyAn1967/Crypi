@@ -11,10 +11,9 @@ import { Input } from '@/components/ui/input'
 export default function LoginPage() {
   const [email, setEmail] = useState('')
   const router = useRouter()
-  const { status } = useAccount()            // wagmi: detecta wallet conectada
-  const { login } = useSession()             // tu hook (para guardar el email si quieres)
+  const { status } = useAccount()
+  const { login } = useSession()
 
-  // Si la wallet se conecta, redirige al dashboard
   useEffect(() => {
     if (status === 'connected') {
       router.push('/dashboards')
@@ -24,7 +23,6 @@ export default function LoginPage() {
   const handleEmailLogin = () => {
     const mail = email.trim()
     if (!mail) return
-    // opcional: guarda sesión local
     try { login?.(mail) } catch {}
     router.push('/dashboards')
   }
@@ -34,18 +32,19 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-background text-foreground px-4">
-      <div className="w-full max-w-sm space-y-6">
+    <div className="min-h-screen flex items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-100 text-gray-800 px-4">
+      <div className="w-full max-w-sm space-y-8">
+        {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Bienvenido</h1>
-          <p className="text-sm text-muted-foreground">
-            Entra con tu correo o conecta tu wallet.
-          </p>
+          <h1 className="text-3xl font-extrabold tracking-tight bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">
+            Bienvenido a Cryptalia
+          </h1>
+          <p className="text-sm text-gray-600">Elige cómo quieres entrar</p>
         </div>
 
-        <div className="rounded-2xl border bg-card text-card-foreground shadow-sm p-5 space-y-4">
+        <div className="rounded-2xl border bg-white shadow-lg p-6 space-y-4">
           {/* Login con correo */}
-          <div className="space-y-2">
+          <div className="space-y-3">
             <label className="text-sm font-medium">Correo</label>
             <Input
               placeholder="tu@correo.com"
@@ -53,27 +52,21 @@ export default function LoginPage() {
               onChange={(e) => setEmail(e.target.value)}
               onKeyDown={onKeyDown}
             />
-            <Button className="w-full" onClick={handleEmailLogin}>
-              Entrar
+            <Button className="w-full text-lg py-3" onClick={handleEmailLogin}>
+              Iniciar con correo
             </Button>
           </div>
 
-          <div className="flex items-center gap-2">
-            <div className="h-px bg-border w-full" />
-            <span className="text-xs text-muted-foreground">o</span>
-            <div className="h-px bg-border w-full" />
+          {/* Divider */}
+          <div className="flex items-center gap-2 my-4">
+            <div className="h-px flex-1 bg-gray-200" />
+            <span className="text-xs text-gray-400">o</span>
+            <div className="h-px flex-1 bg-gray-200" />
           </div>
 
-          {/* Conectar wallet (Reown) */}
-          <div className="flex justify-center">
-            <ConnectButton />
-          </div>
+          {/* Conectar wallet (visible, estilizado) */}
+          <ConnectButton />
         </div>
-
-        {/* (Opcional) Info de Reown si sigues con projectId de demo */}
-        {/* <p className="text-xs text-center text-muted-foreground">
-          Este projectId funciona solo en localhost. Configura el tuyo en Reown Cloud.
-        </p> */}
       </div>
     </div>
   )
