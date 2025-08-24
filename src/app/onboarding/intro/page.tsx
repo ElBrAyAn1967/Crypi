@@ -56,7 +56,7 @@ export default function OnboardingPage() {
 
   const next = () => {
     if (index < slides.length - 1) setIndex(index + 1)
-    else router.push('/dashboard')
+    else router.push('/dashboards')
   }
   const prev = () => setIndex(Math.max(0, index - 1))
   const goTo = (i: number) => setIndex(i)
@@ -66,7 +66,7 @@ export default function OnboardingPage() {
       <div className="w-full max-w-xl space-y-6">
         {/* Header */}
         <div className="text-center space-y-2">
-          <h1 className="text-3xl font-bold tracking-tight">Bienvenido a Mundos</h1>
+          <h1 className="text-3xl font-bold tracking-tight">¡Bienvenido a Cryptalia!</h1>
           <p className="text-sm text-muted-foreground">Crypto Quest • Onboarding</p>
         </div>
 

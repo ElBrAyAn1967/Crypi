@@ -6,92 +6,86 @@ import PageWrapper from '@/app/layout/page-wrapper'
 import { Button } from '@/components/ui/button'
 import { ConnectButton } from '@/components/ConnectButton'
 import { Gamepad2, Coins, ShieldCheck } from 'lucide-react'
-// import MundosScene from '@/components/MundosScene' // opcional: tu escena 3D si la tienes
 
 export default function Landing() {
   const ctaRef = useRef<HTMLButtonElement>(null)
 
   return (
     <PageWrapper>
-      {/* Si tienes una escena, pásale el targetRef para alinear la cámara al CTA */}
-      {/* <MundosScene targetRef={ctaRef as unknown as React.RefObject<HTMLElement>} /> */}
+      <section className="relative min-h-screen flex flex-col items-center justify-center bg-gradient-to-b from-gray-50 via-white to-gray-100 text-gray-800 px-6 text-center">
+        {/* Top accent */}
+        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-blue-500 to-green-400" />
 
-      <section className="min-h-screen flex flex-col items-center justify-center bg-background text-foreground px-6 text-center relative">
-        {/* Accent top bar */}
-        <div className="absolute top-0 left-0 right-0 h-[3px] bg-gradient-to-r from-pink-500 via-fuchsia-500 to-amber-400" />
-
-        <div className="max-w-3xl space-y-8">
-          <h1 className="text-5xl md:text-6xl font-funnel font-medium tracking-tight !leading-[1.15]">
-            Aprende cripto <br className="hidden md:block" />
-            <span className="underline decoration-primary underline-offset-8">
-              jugando con Mundos
-            </span>
+        <div className="relative z-10 max-w-3xl space-y-8">
+          <h1 className="text-5xl md:text-6xl font-extrabold tracking-tight leading-[1.15]">
+            Aprende <span className="bg-gradient-to-r from-blue-600 to-green-500 bg-clip-text text-transparent">Blockchain</span><br className="hidden md:block" />
+            jugando con <span className="text-gray-900">Cryptalia</span>
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground">
-            Completa mundos, supera retos y gana <span className="font-semibold">YTA</span> por tu progreso.
+          <p className="text-lg md:text-xl text-gray-600 max-w-2xl mx-auto">
+            Completa retos interactivos y gana <span className="font-semibold text-blue-600">YTA</span> por tu progreso.
           </p>
-          <p className="text-base md:text-lg text-muted-foreground">
-            Entra con <span className="font-medium">correo</span> o conecta tu <span className="font-medium">wallet</span>. Tú controlas tus recompensas.
+          <p className="text-base md:text-lg text-gray-500">
+            Accede con tu correo o conecta tu wallet. Tú controlas tus recompensas.
           </p>
 
-          {/* CTAs */}
-          <div className="mt-4 flex flex-col sm:flex-row items-center justify-center gap-3">
-            <Link href="/onboarding">
-              <Button ref={ctaRef} className="px-8 py-6 text-base md:text-lg">
-                Empezar (Onboarding)
-              </Button>
-            </Link>
-
+          {/* CTAs simplificados */}
+          <div className="mt-6 flex flex-col sm:flex-row items-center justify-center gap-4">
             <Link href="/login">
-              <Button variant="outline" className="px-8 py-6 text-base md:text-lg">
-                Iniciar sesión
+              <Button ref={ctaRef} size="lg" className="px-8 py-6 text-lg">
+                Iniciar sesión / Conectar wallet
               </Button>
             </Link>
 
-            {/* Conectar wallet directo desde landing */}
-            <div className="mt-1 sm:mt-0">
-              <ConnectButton />
-            </div>
+            <Link href="/dashboards">
+              <Button
+                size="lg"
+                variant="outline"
+                className="px-8 py-6 text-lg border-gray-300 text-gray-700 hover:bg-gray-100"
+              >
+                Explorar mundos
+              </Button>
+            </Link>
           </div>
 
           {/* Features */}
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6 pt-8">
-            <div className="rounded-2xl border bg-card text-card-foreground p-5 text-left">
-              <div className="flex items-center gap-2 mb-2">
-                <Gamepad2 className="h-5 w-5" />
-                <h3 className="font-semibold">Mundos y retos</h3>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-6 pt-12">
+            <div className="card-glass p-6 rounded-2xl shadow-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="p-3 rounded-full bg-blue-100">
+                  <Gamepad2 className="h-6 w-6 text-blue-600" />
+                </span>
+                <h3 className="font-semibold text-lg">Mundos y retos</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Lecciones cortas, prácticas y progresivas. Desbloquea niveles y mantén tu racha diaria.
+              <p className="text-sm text-gray-600">
+                Lecciones prácticas y progresivas. Desbloquea niveles y mantén tu racha diaria.
               </p>
             </div>
 
-            <div className="rounded-2xl border bg-card text-card-foreground p-5 text-left">
-              <div className="flex items-center gap-2 mb-2">
-                <Coins className="h-5 w-5" />
-                <h3 className="font-semibold">Gana YTA</h3>
+            <div className="card-glass p-6 rounded-2xl shadow-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="p-3 rounded-full bg-green-100">
+                  <Coins className="h-6 w-6 text-green-600" />
+                </span>
+                <h3 className="font-semibold text-lg">Gana YTA</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Recibe <strong>YTA (ERC-20)</strong> por cada logro. Reclama tus recompensas al completar mundos.
+              <p className="text-sm text-gray-600">
+                Recibe <strong>YTA (ERC-20)</strong> por cada logro y reclama tus recompensas al completar mundos.
               </p>
             </div>
 
-            <div className="rounded-2xl border bg-card text-card-foreground p-5 text-left">
-              <div className="flex items-center gap-2 mb-2">
-                <ShieldCheck className="h-5 w-5" />
-                <h3 className="font-semibold">Control y seguridad</h3>
+            <div className="card-glass p-6 rounded-2xl shadow-lg">
+              <div className="flex items-center gap-3 mb-3">
+                <span className="p-3 rounded-full bg-yellow-100">
+                  <ShieldCheck className="h-6 w-6 text-yellow-600" />
+                </span>
+                <h3 className="font-semibold text-lg">Control y seguridad</h3>
               </div>
-              <p className="text-sm text-muted-foreground">
-                Entra con correo o wallet. Tus claves son tuyas; nosotros solo guiamos tu aprendizaje.
+              <p className="text-sm text-gray-600">
+                Conecta con correo o wallet. Tus claves son tuyas; nosotros solo guiamos tu aprendizaje.
               </p>
             </div>
           </div>
-
-          {/* Mini nota opcional para Reown (quítala si ya configuraste tu projectId) */}
-          {/* <p className="text-[11px] text-muted-foreground">
-            Nota: Si usas el projectId de demo de Reown, solo funciona en localhost. Configura el tuyo en Reown Cloud.
-          </p> */}
         </div>
       </section>
     </PageWrapper>
